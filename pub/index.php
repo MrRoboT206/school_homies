@@ -354,7 +354,7 @@
                         include '../priv/takeData/searchPosts.php';
                         include './showData/showPosts.php';
                     } else {
-                        include '../priv/takeData/takeposts.php';
+                        include '../priv/takeData/takePosts.php';
                         include './showData/showPosts.php';
                     }
                 ?>
