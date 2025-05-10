@@ -22,7 +22,7 @@ if (!function_exists('getUserFolders')) {
     }
 }
 
-if (!function_exists('getPublicFoldersOfOtherUsers')) {
+if (!function_exists('getPublicFolders')) {
     function getPublicFolders($conn, $id_user = null, $exclude_logged_user = true) {
         // Costruisce la query in base ai parametri
         $query = "SELECT f.id_folder, f.name, f.type, f.id_user FROM folders AS f WHERE f.type = 'public'";

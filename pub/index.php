@@ -12,7 +12,7 @@
     
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f7f9fa;
+        background-color:rgb(255, 255, 255)  !important;
         color: #0f1419;
     }
     
@@ -271,6 +271,16 @@
         opacity: 0.9;
         transform: scale(1.05);
     }
+
+    /* Stile per il pulsante "like" */
+    .like-button {
+        color: #6a11cb; /* Cambia il colore se necessario */
+        transition: color 0.3s;
+    }
+
+    .like-button:hover {
+        color: #2575fc;
+    }
 </style>
 
 <div class="layout-container">
@@ -295,6 +305,10 @@
 
         <a href="index.php?type_post=2" class="menu-item <?= isset($_GET['type_post']) && $_GET['type_post'] == 2 ? 'active-menu' : '' ?>">
             <i class="fas fa-calendar-alt"></i> Eventi
+        </a>
+
+        <a href="index.php?type_post=4" class="menu-item <?= isset($_GET['type_post']) && $_GET['type_post'] == 4 ? 'active-menu' : '' ?>">
+            <i class="fas fa-bookmark"></i> Salvati
         </a>
         
         <?php if (isset($_SESSION['email'])): ?>

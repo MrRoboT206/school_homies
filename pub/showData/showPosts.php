@@ -22,36 +22,44 @@
         }
         
         .post-card {
-            background: #fff;
-            border: 1px solid var(--twitter-light-gray);
-            border-radius: 16px;
-            margin-bottom: 16px;
-            transition: 0.3s;
+            background: #ffffff;
+            border: none; /* Rimuovi il bordo */
+            border-radius: 16px; /* Bordi arrotondati */
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
         }
         
         .post-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
         
         .post-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0; /* Separatore */
+        }
+        
+        .post-body {
+            padding: 16px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .post-actions {
             padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        .post-body {
-            padding: 12px 16px;
-        }
-        
-        .post-actions {
-            padding: 8px 16px;
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid var(--twitter-light-gray);
+            border-top: 1px solid #f0f0f0; /* Separatore */
+            background-color: #f9f9f9; /* Sfondo leggero */
         }
         
         .btn-twitter {
@@ -96,36 +104,37 @@
         }
         
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             margin-right: 12px;
             object-fit: cover;
+            border: 2px solid #1da1f2; /* Aggiungi un bordo colorato */
         }
         
         .username {
-            color: var(--twitter-text-gray);
             font-size: 0.9rem;
+            color: #657786;
         }
         
         .post-time {
-            color: var(--twitter-text-gray);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            color: #aab8c2;
         }
         
         .action-btn {
-            color: var(--twitter-text-gray);
+            color: #657786;
             background: none;
             border: none;
-            font-size: 1rem;
+            font-size: 1.2rem;
             padding: 8px;
             border-radius: 50%;
-            transition: 0.2s;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .action-btn:hover {
-            background: rgba(29, 161, 242, 0.1);
-            color: var(--twitter-blue);
+            background-color: rgba(29, 161, 242, 0.1);
+            color: #1da1f2;
         }
         
         .comment-form {
@@ -139,6 +148,18 @@
             border-radius: 12px;
             padding: 12px;
             margin-top: 12px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .file-attachment a {
+            color: #1da1f2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .file-attachment a:hover {
+            text-decoration: underline;
         }
         
         .no-posts {
@@ -209,6 +230,34 @@
                                     </a>
                                 </div>
                             <?php endif; ?>
+                        <?php endif; ?>
+
+                        <?php if ($postRow['type_post'] == 2): ?>
+                            <div class="event-details">
+                                <i class="fas fa-calendar-alt"></i> 
+                                <strong>Data evento:</strong> <?= htmlspecialchars($postRow['date_event']) ?>
+                            </div>
+
+                            <!-- Form per partecipare all'evento -->
+                            <form class="partecipateForm mt-3" method="POST" action="../../priv/gestionePost/addPartecipantEvent.php">
+                                <input type="hidden" name="id_event" value="<?= $postRow['id_post'] ?>">
+                                <button type="submit" class="btn btn-twitter">Partecipa</button>
+                            </form>
+
+                            <!-- Mostra i partecipanti -->
+                            <div class="mt-3">
+                                <h6>Partecipanti:</h6>
+                                <?php
+                                include '../priv/takeData/takePartecipants.php';
+                                if ($partecipantResult->num_rows > 0) {
+                                    while ($participant = $partecipantResult->fetch_assoc()) {
+                                        echo '<span class="participant-badge">' . htmlspecialchars($participant['name']) . ' ' . htmlspecialchars($participant['surname']) . '</span>';
+                                    }
+                                } else {
+                                    echo '<p class="text-muted">Nessun partecipante al momento.</p>';
+                                }
+                                ?>
+                            </div>
                         <?php endif; ?>
                     </div>
 
